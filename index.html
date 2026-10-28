@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Docentes</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Sistema de Docentes</h1>
+
+    <p>Universidad Tecnológica de Coahuila</p>
+
+    <h2>Registro de docentes</h2>
+
+    <form id="formDocente">
+
+        <label for="numero">Número de empleado:</label>
+        <input type="text" id="numero" required>
+
+        <label for="nombre">Nombre del docente:</label>
+        <input type="text" id="nombre" required>
+
+        <label for="especialidad">Especialidad:</label>
+        <input type="text" id="especialidad" required>
+
+        <button type="submit">Registrar docente</button>
+
+    </form>
+
+    <h2>Docentes registrados</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tablaDocentes">
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
