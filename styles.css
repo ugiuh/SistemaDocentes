@@ -58,3 +58,22 @@ th {
     background-color: #173b68;
     color: white;
 }
+
+.exportaciones {
+    text-align: center;
+    margin: 20px;
+}
+
+#exportarTodos {
+    background-color: #218838;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#exportarTodos:hover {
+    background-color: #176b2c;
+}

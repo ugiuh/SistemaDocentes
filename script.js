@@ -140,3 +140,83 @@ function eliminarDocente(indice) {
     }
 
 }
+
+function descargarArchivo(contenido, nombre, tipo) {
+    const archivo = new Blob(
+        [contenido],
+        { type: tipo + ";charset=utf-8;" }
+    );
+
+    const url = URL.createObjectURL(archivo);
+    const enlace = document.createElement("a");
+
+    enlace.href = url;
+    enlace.download = nombre;
+
+    document.body.appendChild(enlace);
+    enlace.click();
+    enlace.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function escaparXML(texto) {
+    return String(texto)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+}
+
+function exportarXML() {
+    const registros = docentes.map(docente => `
+    <docente>
+        <numero>${escaparXML(docente.numero)}</numero>
+        <nombre>${escaparXML(docente.nombre)}</nombre>
+        <especialidad>${escaparXML(docente.especialidad)}</especialidad>
+    </docente>`).join("");
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<docentes>${registros}
+</docentes>`;
+
+    descargarArchivo(xml, "docentes.xml", "application/xml");
+}
+
+function exportarJSON() {
+    const json = JSON.stringify(docentes, null, 2);
+
+    descargarArchivo(
+        json,
+        "docentes.json",
+        "application/json"
+    );
+}
+
+function exportarYAML() {
+    if (typeof jsyaml === "undefined") {
+        alert("No se pudo cargar la biblioteca YAML. Revisa tu conexión a Internet.");
+        return;
+    }
+
+    const yaml = jsyaml.dump(docentes, {
+        noRefs: true,
+        forceQuotes: true
+    });
+
+    descargarArchivo(
+        yaml,
+        "docentes.yaml",
+        "text/yaml"
+    );
+}
+
+document.getElementById("exportarTodos")
+    .addEventListener("click", function() {
+        exportarXML();
+        exportarJSON();
+        exportarYAML();
+
+        alert("Se solicitaron las descargas XML, JSON y YAML.");
+    });
